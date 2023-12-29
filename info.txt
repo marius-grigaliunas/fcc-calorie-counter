@@ -1,2 +1,9 @@
 completed following freeCodeCamp's javascript certification course.
 2 hours 5 minutes
+
+Started to modify the project.
+
+    to do:
+    -add a dynamic calendar.
+    -save calorie info to the calendar.
+    

@@ -4,10 +4,40 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <title>Calorie Counter</title>
   </head>
   <body>
     <main>
+      <h1>Calendar</h1>
+      <div class="calendar-container">
+        <header class="calendar-header">
+          <p class="current-month">December</p>
+          <div class="calendar-navigation">
+            <span id="calendar-prev" class="material-symbols-rounded">chevron_left</span>
+            <span id="calendar-next" class="material-symbols-rounded">chevron_right</span>
+          </div>
+        </header>
+        <div class="calendar-body">
+          <table class="calendar-table">
+            <thead class="calendar-table-header">
+              <tr>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+              </tr>
+            </thead>
+            <tbody id="calendar-dates">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr>
       <h1>Calorie Counter</h1>
       <div class="container">
         <form id="calorie-counter">
@@ -64,5 +94,6 @@
       </div>
     </main>
     <script src="./script.js"></script>
+    <script src="./calendar.js"></script>
   </body>
 </html>
