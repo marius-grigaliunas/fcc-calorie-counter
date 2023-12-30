@@ -101,3 +101,49 @@
     align-items: center;
     justify-content: space-around;
   }
+
+  .current-date {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 70%;
+  }
+
+  .day-names {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    padding-bottom: 15px;
+  }
+
+  .calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    height: 100%;
+  }
+
+  .day {
+    border: 1px solid var(--dark-red);
+    text-align: center;
+    padding: 20px;
+    padding-top: 5px;
+  }
+
+  .workday {
+    color: var(--light-pink);
+  }
+
+  .weekend {
+    color: lightblue;
+  }
+
+  .last-month, .next-month{
+    color: gray;
+  }
+
+  .material-symbols-rounded {
+    cursor: pointer;
+    user-select: none;
+  }

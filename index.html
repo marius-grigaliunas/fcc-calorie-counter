@@ -12,30 +12,25 @@
       <h1>Calendar</h1>
       <div class="calendar-container">
         <header class="calendar-header">
-          <p class="current-month">December</p>
+          <div class="current-date">
+            <p class="current-month"></p>
+            <p class="current-year"></p>
+          </div>
           <div class="calendar-navigation">
             <span id="calendar-prev" class="material-symbols-rounded">chevron_left</span>
             <span id="calendar-next" class="material-symbols-rounded">chevron_right</span>
           </div>
         </header>
-        <div class="calendar-body">
-          <table class="calendar-table">
-            <thead class="calendar-table-header">
-              <tr>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-                <th>Sun</th>
-              </tr>
-            </thead>
-            <tbody id="calendar-dates">
-
-            </tbody>
-          </table>
+        <div class="day-names">
+          <div class="workday">Mon</div>
+          <div class="workday">Tue</div>
+          <div class="workday">Wed</div>
+          <div class="workday">Thu</div>
+          <div class="workday">Fri</div>
+          <div class="weekend">Sat</div>
+          <div class="weekend">Sun</div>
         </div>
+        <div class="calendar-body"></div>
       </div>
       <hr>
       <h1>Calorie Counter</h1>

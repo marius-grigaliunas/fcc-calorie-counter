@@ -2,12 +2,17 @@ let date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth();
 
-const day = document.querySelector(".calendar-dates");
+const calendar = document.querySelector(".calendar-body");
 const currentMonth = document.querySelector(".current-month");
+const currentYear = document.querySelector(".current-year");
 const navButtons = document.querySelectorAll(".calendar-navigation span");
+
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August",
                 "September", "October", "November", "December"];
+
+currentMonth.textContent = months[month];
+currentYear.textContent = year;
 
 const generateCalendar = () => {
 
@@ -21,11 +26,79 @@ const generateCalendar = () => {
     //get the name of the last day of the month
     let dayLast = new Date(year, month, dateLast).getDay();
 
-    let calendarString = "";
+    for(let i = 1; i <= dateLast; i++) {
+        let day = new Date(year, month, i).getDay();
 
+        // if first day of the months isn't monday fill it with the last month's dates
+        if(i === 1 && day !== 1) {
+            let lastMonthDate;
 
-    for(let i = dayFirst; i > 0; i--) {
+            if(day !== 0) {
+                lastMonthDate = dateLast_MonthPrev - day + 1;
+            } else {
+                lastMonthDate = dateLast_MonthPrev - 7 + 1;
+                dayFirst = 7;
+            }
+
+            for(let j = 1; j < dayFirst; j++) {
+                if(j === 6) {
+                    calendar.insertAdjacentHTML('beforeend', `<div class="day weekend last-month">${lastMonthDate + j}</div>`); 
+                } else {
+                    calendar.insertAdjacentHTML('beforeend', `<div class="day workday last-month">${lastMonthDate + j}</div>`);
+                }        
+            }
+
+        }
+
+        // if day is weekend day name different classes for coloring
+        if(day === 0 || day === 6) {
+            calendar.insertAdjacentHTML('beforeend', `<div class="day weekend">${i}</div>`); 
+        } else {
+            calendar.insertAdjacentHTML('beforeend', `<div class="day workday">${i}</div>`);
+        }
+
+    }
+
+    //if the last day of the month isn't sunday, fill the rest of the week with the next month dates 
+    if(dayLast !== 0) {
+        for(let i = dayLast + 1; i <= 7; i++) {
+            if(i === 6 || i === 7) {
+                calendar.insertAdjacentHTML('beforeend', `<div class="day weekend next-month">${i - dayLast}</div>`); 
+            } else {
+                calendar.insertAdjacentHTML('beforeend', `<div class="day workday next-month">${i - dayLast}</div>`);
+            }
+        }
     }
 };
 
 generateCalendar();
+
+navButtons[0].addEventListener("click", () => {
+    if(month === 0) {
+        year--;
+        month = 11
+    } else {
+        month--;
+    }
+
+    currentMonth.textContent = months[month];
+    currentYear.textContent = year;
+
+    calendar.innerHTML = "";
+    generateCalendar();
+});
+
+navButtons[1].addEventListener("click", () => {
+    if(month === 11) {
+        year++;
+        month = 0;
+    } else {
+        month++;
+    }
+
+    currentMonth.textContent = months[month];
+    currentYear.textContent = year;
+
+    calendar.innerHTML = "";
+    generateCalendar();
+});
