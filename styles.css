@@ -129,6 +129,11 @@
     text-align: center;
     padding: 20px;
     padding-top: 5px;
+    transition: 0.3s;
+  }
+
+  .day:hover {
+    background-color: #3b3b6e;
   }
 
   .workday {
