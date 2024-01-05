@@ -1,18 +1,23 @@
 let date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth();
+let today = date.getDate();
 
 const calendar = document.querySelector(".calendar-body");
 const currentMonth = document.querySelector(".current-month");
 const currentYear = document.querySelector(".current-year");
 const navButtons = document.querySelectorAll(".calendar-navigation span");
 
-
 const months = ["January", "February", "March", "April", "May", "June", "July", "August",
                 "September", "October", "November", "December"];
 
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
 currentMonth.textContent = months[month];
 currentYear.textContent = year;
+
+const currentFullDate = document.getElementById("current-full-date");
+currentFullDate.innerText = `${days[new Date(year, month, today).getDay()]}  ${today} ${months[month]} ${year}`
 
 const generateCalendar = () => {
 
@@ -52,9 +57,17 @@ const generateCalendar = () => {
 
         // if day is weekend day name different classes for coloring
         if(day === 0 || day === 6) {
-            calendar.insertAdjacentHTML('beforeend', `<div class="day weekend">${i}</div>`); 
+            if(i === today) {
+                calendar.insertAdjacentHTML('beforeend', `<div class="day today weekend">${i}</div>`);
+            } else {
+                calendar.insertAdjacentHTML('beforeend', `<div class="day weekend">${i}</div>`);
+            } 
         } else {
-            calendar.insertAdjacentHTML('beforeend', `<div class="day workday">${i}</div>`);
+            if(i === today) {
+                calendar.insertAdjacentHTML('beforeend', `<div class="day today workday">${i}</div>`);
+            } else {
+                calendar.insertAdjacentHTML('beforeend', `<div class="day workday">${i}</div>`);
+            }
         }
 
     }

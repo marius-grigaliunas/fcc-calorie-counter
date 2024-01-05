@@ -144,6 +144,10 @@
     color: lightblue;
   }
 
+  .today {
+    background-color: var(--dark-red);
+  }
+
   .last-month, .next-month{
     color: gray;
   }
@@ -151,4 +155,18 @@
   .material-symbols-rounded {
     cursor: pointer;
     user-select: none;
+  }
+
+  .counter-header {
+    display: flex;
+  }
+
+  #budget-container {
+    width: 50%;
+    height: 50px;
+  }
+
+  #current-full-date {
+    width: 50%;
+    text-align: end;
   }

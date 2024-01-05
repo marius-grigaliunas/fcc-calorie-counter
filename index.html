@@ -36,14 +36,19 @@
       <h1>Calorie Counter</h1>
       <div class="container">
         <form id="calorie-counter">
-          <label for="budget">Budget</label>
-          <input
-            type="number"
-            min="0"
-            id="budget"
-            placeholder="Daily calorie budget"
-            required
-          />
+          <div class="counter-header">
+            <div id="budget-container">
+              <label for="budget">Budget</label>
+              <input
+                type="number"
+                min="0"
+                id="budget"
+                placeholder="Daily calorie budget"
+                required
+              />
+            </div>
+            <div id="current-full-date"></div>
+          </div>
           <fieldset id="breakfast">
             <legend>Breakfast</legend>
             <div class="input-container"></div>
@@ -90,5 +95,6 @@
     </main>
     <script src="./script.js"></script>
     <script src="./calendar.js"></script>
+    <script src="./calendar-script-connection"></script>
   </body>
 </html>
