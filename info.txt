@@ -1,10 +1,12 @@
 completed following freeCodeCamp's javascript certification course.
-2 hours 5 minutes
+Modified by myself without guidance.
+2 hours 5 minutes + 
+4 hours 
 
 Started to modify the project.
 
     to do:
-    -save calorie info to the calendar.
+    -be able to switch days.
     
     done:
     -Calendar added. Took about 3 hours to experiment and generate a 
@@ -12,3 +14,6 @@ Started to modify the project.
     general algorithmic thinking. The hardest problem was generating last month's 
     dates on the calendar, the calculations to get the previous dates took time to
     think of, but overall I don't think this was challenging.
+    -added localStorage saving and retrieving.
+    -displaying localStorage data on the calendar.
+    

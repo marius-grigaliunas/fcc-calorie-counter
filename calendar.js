@@ -18,6 +18,8 @@ currentYear.textContent = year;
 
 const currentFullDate = document.getElementById("current-full-date");
 currentFullDate.innerText = `${days[new Date(year, month, today).getDay()]}  ${today} ${months[month]} ${year}`
+const currentDate = `${today}-${month}-${year}`;
+
 
 const generateCalendar = () => {
 

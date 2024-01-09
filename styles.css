@@ -170,3 +170,21 @@
     width: 50%;
     text-align: end;
   }
+
+  .calorie-data {
+    font-size: 15px;
+    margin: 5px 0 0 0;
+    border-radius: 16px;
+    text-align: center;
+    background-color: #0a0a23;
+    color: var(--dark-red);
+    font-weight: bold;
+  }
+
+  .deficit {
+    color: var(--dark-yellow);
+  }
+
+  .surplus {
+    color: var(--dark-red);
+  }
