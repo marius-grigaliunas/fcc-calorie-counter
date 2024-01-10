@@ -2,11 +2,13 @@ completed following freeCodeCamp's javascript certification course.
 Modified by myself without guidance.
 2 hours 5 minutes + 
 4 hours 
+2 hours
 
 Started to modify the project.
 
     to do:
-    -be able to switch days.
+    -comments
+    -refactoring
     
     done:
     -Calendar added. Took about 3 hours to experiment and generate a 
@@ -16,4 +18,7 @@ Started to modify the project.
     think of, but overall I don't think this was challenging.
     -added localStorage saving and retrieving.
     -displaying localStorage data on the calendar.
+    -clearing localStorage
+    -switching days
+    -more responsive calendar design
     
