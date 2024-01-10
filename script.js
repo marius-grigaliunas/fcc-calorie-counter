@@ -5,6 +5,8 @@ let year = date.getFullYear();
 let month = date.getMonth();
 let today = date.getDate();
 
+const dateDate = `${today}-${month}-${year}`;
+
 const calendar = document.querySelector(".calendar-body");
 const currentMonth = document.querySelector(".current-month");
 const currentYear = document.querySelector(".current-year");
@@ -17,8 +19,7 @@ const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", 
 
 currentMonth.textContent = months[month];
 currentYear.textContent = year;
-const currentDate 
-= `${today}-${month}-${year}`;
+let currentDate = `${today}-${month}-${year}`;
 const currentFullDate = document.getElementById("current-full-date");
 currentFullDate.innerText = `${days[new Date(year, month, today).getDay()]}  ${today} ${months[month]} ${year}`
 
@@ -61,13 +62,13 @@ const generateCalendar = () => {
 
         // if day is weekend day name different classes for coloring
         if(day === 0 || day === 6) {
-            if(i === today) {
+            if(i === today && month === dateDate.split('-')[1]) {
                 calendar.insertAdjacentHTML('beforeend', `<div id="${i}-${month}-${year}" class="day today weekend">${i}</div>`);
             } else {
                 calendar.insertAdjacentHTML('beforeend', `<div id="${i}-${month}-${year}" class="day weekend">${i}</div>`);
             } 
         } else {
-            if(i === today) {
+            if(i === today && month == dateDate.split('-')[1]) {
                 calendar.insertAdjacentHTML('beforeend', `<div id="${i}-${month}-${year}" class="day today workday">${i}</div>`);
             } else {
                 calendar.insertAdjacentHTML('beforeend', `<div id="${i}-${month}-${year}" class="day workday">${i}</div>`);
@@ -86,6 +87,26 @@ const generateCalendar = () => {
             }
         }
     }
+    addClickEvent();
+  };
+
+const addClickEvent = () => {
+  const daysToClick = document.querySelectorAll(".day");
+  for(let i = 0; i < daysToClick.length; i++) {
+    daysToClick[i].addEventListener("click", () => {
+      if(document.querySelector(".today")) {
+        document.querySelector(".today").classList.remove("today");
+      }
+      daysToClick[i].classList.add("today");
+
+      currentDate = daysToClick[i].querySelector(".day-number") ? `${daysToClick[i].querySelector(".day-number").innerText}-${month}-${year}` : `${daysToClick[i].innerText}-${month}-${year}`;
+
+      const currentDatearray = currentDate.split('-');
+      currentFullDate.innerText = `${days[new Date(currentDatearray[2], currentDatearray[1], currentDatearray[0]).getDay()]}  ${currentDatearray[0]} ${months[currentDatearray[1]]} ${currentDatearray[2]}`
+
+      updateForm();
+    });
+  }  
 };
 
 generateCalendar();
@@ -117,6 +138,7 @@ navButtons[0].addEventListener("click", () => {
 
     calendar.innerHTML = "";
     generateCalendar();
+    updateForm();
 });
 
 navButtons[1].addEventListener("click", () => {
@@ -132,7 +154,9 @@ navButtons[1].addEventListener("click", () => {
 
     calendar.innerHTML = "";
     generateCalendar();
+    updateForm();
 });
+ 
 
 //calorie-counter.js
 const calorieCounter = document.getElementById('calorie-counter');
@@ -140,6 +164,7 @@ const budgetNumberInput = document.getElementById('budget');
 const entryDropdown = document.getElementById('entry-dropdown');
 const addEntryButton = document.getElementById('add-entry');
 const clearButton = document.getElementById('clear');
+const deleteStorageButton = document.getElementById("delete");
 const output = document.getElementById('output');
 let isError = false;
 
@@ -182,7 +207,7 @@ const addEntryFromInput = (list) => {
       const value = list[i].value;
       const HTMLString = `
       <div class="meal-container">
-      <label for="${category}-${entryNumber}-calories">Meal ${entryNumber} Calories</label>
+      <label for="${category}-${entryNumber}-calories">${category === 'exercise' ? 'Exercise' : 'Meal'} ${entryNumber} Calories</label>
       <input
         type="number"
         min="0"
@@ -265,7 +290,7 @@ const createData = (budget, calorieBalance, caloriesBurned, date, breakfastList,
   };
 
   if(dataArrIndex === -1) {
-    journalData.unshift(dataObj);
+    journalData.push(dataObj);
   } else {
     journalData[dataArrIndex] = dataObj;
   }
@@ -307,21 +332,34 @@ function clearForm() {
   output.classList.add('hide');
 }
 
-addEntryButton.addEventListener("click", addEntry);
-calorieCounter.addEventListener("submit", calculateCalories);
-clearButton.addEventListener("click", clearForm);
+const updateForm = () => {
+  if(journalData.length !== 0) {
+    for(let i = 0; i < journalData.length; i++) {
+      if(journalData[i].id.split('-')[1] == month){
+        insertCalorieData(journalData[i].id, journalData[i].balance);
+      
+        if(journalData[i].id === currentDate) {
+          console.log(journalData[i], i);
+          clearForm();
 
-if(journalData.length !== 0) {
-  for(let i = 0; i < journalData.length; i++) {
-    insertCalorieData(journalData[i].id, journalData[i].balance);
-
-    if(journalData[i].id === currentDate) {
-      clearForm();
-
-      budgetNumberInput.value = journalData[i].budget;
-      for(let j = 0; j < journalData[i].calories.length; j++) {
-        addEntryFromInput(journalData[i].calories[j]);
+          budgetNumberInput.value = journalData[i].budget;
+          for(let j = 0; j < journalData[i].calories.length; j++) {
+            addEntryFromInput(journalData[i].calories[j]);
+          }
+          break;
+        }
+      } else {
+        clearForm();
       }
     }
   }
-}
+};
+
+addEntryButton.addEventListener("click", addEntry);
+calorieCounter.addEventListener("submit", calculateCalories);
+clearButton.addEventListener("click", clearForm);
+deleteStorageButton.addEventListener("click", () => {
+  localStorage.clear();
+})
+
+updateForm();
