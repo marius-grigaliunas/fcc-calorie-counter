@@ -62,7 +62,7 @@ const generateCalendar = () => {
 
         // if day is weekend day name different classes for coloring
         if(day === 0 || day === 6) {
-            if(i === today && month === dateDate.split('-')[1]) {
+            if(i === today && month == dateDate.split('-')[1]) {
                 calendar.insertAdjacentHTML('beforeend', `<div id="${i}-${month}-${year}" class="day today weekend">${i}</div>`);
             } else {
                 calendar.insertAdjacentHTML('beforeend', `<div id="${i}-${month}-${year}" class="day weekend">${i}</div>`);
