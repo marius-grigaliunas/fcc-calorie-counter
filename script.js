@@ -109,8 +109,6 @@ const addClickEvent = () => {
   }  
 };
 
-generateCalendar();
-
 const insertCalorieData = (day, calorieBalance) => {
   const targetDay = document.getElementById(day);
   const stringHTML = `
@@ -157,6 +155,7 @@ navButtons[1].addEventListener("click", () => {
     updateForm();
 });
  
+generateCalendar();
 
 //calorie-counter.js
 const calorieCounter = document.getElementById('calorie-counter');
@@ -332,22 +331,45 @@ function clearForm() {
   output.classList.add('hide');
 }
 
+const deleteDay = (dateToDelete) => {
+  if(journalData.length !== 0) {
+    for(let i = 0; i < journalData.length; i++) {
+      if(journalData[i].id === dateToDelete) {
+        journalData.splice(i, 1);
+        console.log("yes");
+      }
+    }
+  }
+
+  localStorage.setItem("data", JSON.stringify(journalData));
+  calendar.innerHTML = "";
+  generateCalendar();
+  let currentDate = `${today}-${month}-${year}`;
+  const currentDatearray = currentDate.split('-');
+  currentFullDate.innerText = `${days[new Date(currentDatearray[2], currentDatearray[1], currentDatearray[0]).getDay()]}  ${currentDatearray[0]} ${months[currentDatearray[1]]} ${currentDatearray[2]}`
+
+  updateForm();
+}
+
 const updateForm = () => {
   if(journalData.length !== 0) {
     for(let i = 0; i < journalData.length; i++) {
       if(journalData[i].id.split('-')[1] == month){
+        console.log("why");
         insertCalorieData(journalData[i].id, journalData[i].balance);
-      
-        if(journalData[i].id === currentDate) {
-          console.log(journalData[i], i);
-          clearForm();
+      }
+    }
 
-          budgetNumberInput.value = journalData[i].budget;
-          for(let j = 0; j < journalData[i].calories.length; j++) {
-            addEntryFromInput(journalData[i].calories[j]);
-          }
-          break;
+    for(let i = 0; i < journalData.length; i++) {
+      if(journalData[i].id === currentDate) {
+        console.log(journalData[i], i);
+        clearForm();
+
+        budgetNumberInput.value = journalData[i].budget;
+        for(let j = 0; j < journalData[i].calories.length; j++) {
+          addEntryFromInput(journalData[i].calories[j]);
         }
+        break;
       } else {
         clearForm();
       }
@@ -357,7 +379,10 @@ const updateForm = () => {
 
 addEntryButton.addEventListener("click", addEntry);
 calorieCounter.addEventListener("submit", calculateCalories);
-clearButton.addEventListener("click", clearForm);
+clearButton.addEventListener("click", () => {
+  deleteDay(currentDate);
+  clearForm();
+});
 deleteStorageButton.addEventListener("click", () => {
   localStorage.clear();
 })
